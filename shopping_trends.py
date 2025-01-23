@@ -179,6 +179,12 @@ plt.xlabel('Gender')
 plt.ylabel('Average Purchase Amount (USD)')
 plt.xticks(rotation=0)
 plt.show()
+# Create the 'Age' column using pd.cut
+df['Age_category'] = pd.cut(df['Age'], bins=[18, 25, 35, 45, 55, 65, 100], 
+                               labels=['18-24', '25-34', '35-44', '45-54', '55-64', '65+'])
+sunburst_data = df.groupby(['Gender', 'Age_category'])['Purchase Amount (USD)'].sum().reset_index()
+px.sunburst(data_frame=sunburst_data, path=['Gender', 'Age_category'], values='Purchase Amount (USD)')
+
 
 
 
